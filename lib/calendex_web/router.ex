@@ -14,11 +14,12 @@ defmodule CalendexWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CalendexWeb do
-    pipe_through :browser
+  live_session :public, on_mount: CalendexWeb.Live.InitAssigns do
+    scope "/", CalendexWeb do
+      pipe_through :browser
 
-  #  get "/", PageController, :index
-    live "/", PageLive
+      live "/", PageLive
+    end
   end
 
   # Other scopes may use custom stacks.
