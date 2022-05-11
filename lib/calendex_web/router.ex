@@ -19,6 +19,7 @@ defmodule CalendexWeb.Router do
       pipe_through :browser
 
       live "/", PageLive
+      live "/:event_type_slug", EventTypeLive
     end
   end
 

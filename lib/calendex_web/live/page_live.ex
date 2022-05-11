@@ -1,7 +1,6 @@
 defmodule CalendexWeb.PageLive do
   use CalendexWeb, :live_view
 
-  # We will implement this module in a minute...
   alias CalendexWeb.Components.EventType
 
   @impl true
