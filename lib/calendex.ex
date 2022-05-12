@@ -8,4 +8,8 @@ defmodule Calendex do
   """
   defdelegate available_event_types, to: Calendex.EventType.Repo, as: :available
 
+  defdelegate get_event_type_by_slug(slug),
+       to: Calendex.EventType.Repo,
+       as: :get_by_slug
+
 end
