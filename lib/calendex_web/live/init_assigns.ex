@@ -12,4 +12,11 @@ defmodule CalendexWeb.Live.InitAssigns do
 
     {:cont, socket}
   end
+
+  def on_mount(:private, _params, _session, socket) do
+    owner = Application.get_env(:calendex, :owner)
+
+    {:cont, assign(socket, :owner, owner)}
+  end
+
 end

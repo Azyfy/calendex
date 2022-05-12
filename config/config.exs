@@ -12,7 +12,8 @@ config :calendex,
   owner: %{
     name: "Azy",
     time_zone: "Europe/Sarajevo",
-  }
+  },
+  basic_auth: [username: "admin", password: "admin"]
 
 # Configures the endpoint
 config :calendex, CalendexWeb.Endpoint,
