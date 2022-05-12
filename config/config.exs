@@ -10,7 +10,8 @@ import Config
 config :calendex,
   ecto_repos: [Calendex.Repo],
   owner: %{
-    name: "Azy"
+    name: "Azy",
+    time_zone: "Europe/Sarajevo",
   }
 
 # Configures the endpoint
