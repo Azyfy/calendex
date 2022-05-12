@@ -98,6 +98,19 @@ defmodule CalendexWeb do
     end
   end
 
+  def admin_live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {CalendexWeb.LayoutView, "admin.html"}
+
+      import CalendexWeb.LiveViewHelpers
+
+      alias Phoenix.LiveView
+
+      unquote(view_helpers())
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

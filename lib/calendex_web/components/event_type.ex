@@ -1,7 +1,7 @@
 defmodule CalendexWeb.Components.EventType do
   use Phoenix.Component
 
-  import CalendlexWeb.LiveViewHelpers
+  import CalendexWeb.LiveViewHelpers
 
   alias __MODULE__
 

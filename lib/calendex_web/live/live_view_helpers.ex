@@ -1,4 +1,4 @@
-defmodule CalendlexWeb.LiveViewHelpers do
+defmodule CalendexWeb.LiveViewHelpers do
   def class_list(items) do
     items
     |> Enum.reject(&(elem(&1, 1) == false))
