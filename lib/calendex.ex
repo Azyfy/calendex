@@ -14,4 +14,8 @@ defmodule Calendex do
 
   defdelegate build_time_slots(date, time_zone, duration), to: Calendex.TimeSlots, as: :build
 
+  defdelegate insert_event(params), to: Calendex.Event.Repo, as: :insert
+
+  defdelegate get_event_by_id(id), to: Calendex.Event.Repo, as: :get
+
 end
