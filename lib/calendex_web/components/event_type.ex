@@ -1,6 +1,10 @@
 defmodule CalendexWeb.Components.EventType do
   use Phoenix.Component
 
+  import CalendlexWeb.LiveViewHelpers
+
+  alias __MODULE__
+
   def selector(assigns) do
     ~H"""
     <%= live_redirect to: @path do %>
@@ -55,6 +59,13 @@ defmodule CalendexWeb.Components.EventType do
         <div class="text-xs">Fri</div>
         <div class="text-xs">Sat</div>
         <div class="text-xs">Sun</div>
+        <%= for i <- 0..@end_of_month.day - 1 do %>
+          <EventType.day
+            index={i}
+            current_path={@current_path}
+            date={Timex.shift(@beginning_of_month, days: i)}
+            time_zone={@time_zone} />
+        <% end %>
       </div>
       <div class="flex items-center gap-x-1">
         <i class="fas fa-globe-americas"></i>
@@ -64,11 +75,40 @@ defmodule CalendexWeb.Components.EventType do
     """
   end
 
+
+
   defp build_path(current_path, params) do
     current_path
     |> URI.parse()
     |> Map.put(:query, URI.encode_query(params))
     |> URI.to_string()
+  end
+
+  def day(%{index: index, current_path: current_path, date: date, time_zone: time_zone} = assigns) do
+    date_path = build_path(current_path, %{date: date})
+    disabled = Timex.compare(date, Timex.today(time_zone)) == -1
+    weekday = Timex.weekday(date, :monday)
+
+    class =
+      class_list([
+        {"grid-column-#{weekday}", index == 0},
+        {"content-center w-10 h-10 rounded-full justify-center items-center flex", true},
+        {"bg-blue-50 text-blue-600 font-bold hover:bg-blue-200", not disabled},
+        {"text-gray-200 cursor-default pointer-events-none", disabled}
+      ])
+
+    assigns =
+      assigns
+      |> assign(disabled: disabled)
+      |> assign(:text, Timex.format!(date, "{D}"))
+      |> assign(:date_path, date_path)
+      |> assign(:class, class)
+
+    ~H"""
+    <%= live_patch to: @date_path, class: @class, disabled: @disabled do %>
+      <%= @text %>
+    <% end %>
+    """
   end
 
 end
