@@ -12,4 +12,6 @@ defmodule Calendex do
        to: Calendex.EventType.Repo,
        as: :get_by_slug
 
+  defdelegate build_time_slots(date, time_zone, duration), to: Calendex.TimeSlots, as: :build
+
 end

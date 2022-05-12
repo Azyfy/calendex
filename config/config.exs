@@ -12,6 +12,8 @@ config :calendex,
   owner: %{
     name: "Azy",
     time_zone: "Europe/Sarajevo",
+    day_start: 9,
+    day_end: 19
   },
   basic_auth: [username: "admin", password: "admin"]
 
