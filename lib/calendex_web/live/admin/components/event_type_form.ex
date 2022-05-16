@@ -34,6 +34,12 @@ defmodule CalendexWeb.Admin.Components.EventTypeForm do
     {:noreply, assign(socket, changeset: changeset, public_url: public_url)}
   end
 
+  def handle_event("set_color", %{"color" => color}, %{assigns: %{changeset: changeset}} = socket) do
+    changeset = Ecto.Changeset.put_change(changeset, :color, color)
+
+    {:noreply, assign(socket, changeset: changeset, current_color: color)}
+  end
+
   defp build_public_url(socket, nil) do
     build_public_url(socket, "")
   end
