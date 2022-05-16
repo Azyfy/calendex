@@ -18,4 +18,10 @@ defmodule Calendex.EventType.Repo do
     end
   end
 
+  def insert(params) do
+    params
+    |> EventType.changeset()
+    |> Repo.insert()
+  end
+
 end

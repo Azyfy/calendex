@@ -15,4 +15,22 @@ defmodule CalendexWeb.Admin.NewEventTypeLive do
 
     {:ok, socket}
   end
+
+  def handle_info({:submit, params}, socket) do
+    params
+    |> Calendex.insert_event_type()
+    |> case do
+      {:ok, event_type} ->
+        socket = put_flash(socket, :info, "Saved")
+
+        {:noreply,
+         push_redirect(socket,
+           to: Routes.live_path(socket, CalendexWeb.Admin.EditEventTypeLive, event_type.id)
+         )}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
 end

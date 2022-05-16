@@ -40,6 +40,12 @@ defmodule CalendexWeb.Admin.Components.EventTypeForm do
     {:noreply, assign(socket, changeset: changeset, current_color: color)}
   end
 
+  def handle_event("submit", %{"event_type" => params}, socket) do
+    send(self(), {:submit, params})
+
+    {:noreply, socket}
+  end
+
   defp build_public_url(socket, nil) do
     build_public_url(socket, "")
   end
