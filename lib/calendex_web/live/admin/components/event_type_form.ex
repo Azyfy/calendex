@@ -4,6 +4,8 @@ defmodule CalendexWeb.Admin.Components.EventTypeForm do
   alias Calendex.EventType
   alias Phoenix.LiveComponent
 
+  alias Ecto.Changeset
+
   def update(
         %{
           event_type: %EventType{color: current_color, slug: slug} = event_type,
@@ -21,6 +23,17 @@ defmodule CalendexWeb.Admin.Components.EventTypeForm do
     {:ok, socket}
   end
 
+  def handle_event(
+        "change",
+        %{"event_type" => params},
+        %{assigns: %{event_type: event_type}} = socket
+      ) do
+    changeset = EventType.changeset(event_type, params)
+    public_url = build_public_url(socket, get_slug(changeset))
+
+    {:noreply, assign(socket, changeset: changeset, public_url: public_url)}
+  end
+
   defp build_public_url(socket, nil) do
     build_public_url(socket, "")
   end
@@ -28,4 +41,8 @@ defmodule CalendexWeb.Admin.Components.EventTypeForm do
   defp build_public_url(socket, slug) do
     Routes.live_url(socket, CalendexWeb.EventTypeLive, slug)
   end
+
+  defp get_slug(%Changeset{changes: %{slug: slug}}), do: slug
+  defp get_slug(%Changeset{data: %{slug: slug}}), do: slug
+
 end
