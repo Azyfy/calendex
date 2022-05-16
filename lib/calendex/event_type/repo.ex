@@ -24,4 +24,20 @@ defmodule Calendex.EventType.Repo do
     |> Repo.insert()
   end
 
+  def get(id) do
+    case Repo.get(EventType, id) do
+      nil ->
+        {:error, :not_found}
+
+      event_type ->
+        {:ok, event_type}
+    end
+  end
+
+  def update(event_type, params) do
+    event_type
+    |> EventType.changeset(params)
+    |> Repo.update()
+  end
+
 end

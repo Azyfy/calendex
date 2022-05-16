@@ -20,4 +20,8 @@ defmodule Calendex do
 
   defdelegate insert_event_type(params), to: Calendex.EventType.Repo, as: :insert
 
+  defdelegate get_event_type_by_id(id), to: Calendex.EventType.Repo, as: :get
+
+  defdelegate update_event_type(params), to: Calendex.EventType.Repo, as: :update
+
 end

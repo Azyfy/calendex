@@ -27,6 +27,7 @@ defmodule CalendexWeb.Router do
 
       live "/", EventTypesLive
       live "/event_types/new", NewEventTypeLive
+      live "/event_types/:id", EditEventTypeLive
     end
   end
 
