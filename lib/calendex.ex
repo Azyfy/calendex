@@ -24,4 +24,6 @@ defmodule Calendex do
 
   defdelegate update_event_type(event_type, params), to: Calendex.EventType.Repo, as: :update
 
+  defdelegate clone_event_type(event_type), to: Calendex.EventType.Repo, as: :clone
+
 end

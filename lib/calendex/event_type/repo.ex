@@ -1,6 +1,6 @@
 defmodule Calendex.EventType.Repo do
   alias Calendex.{EventType, Repo}
-  import Ecto.Query, only: [order_by: 3]
+  import Ecto.Query, only: [where: 3, order_by: 3]
 
   def available do
     EventType
@@ -38,6 +38,13 @@ defmodule Calendex.EventType.Repo do
     event_type
     |> EventType.changeset(params)
     |> Repo.update()
+  end
+
+  def clone(%EventType{name: name, slug: slug} = event_type) do
+    event_type
+    |> Map.from_struct()
+    |> Map.put(:name, "#{name} (clone)")
+    |> insert()
   end
 
 end
